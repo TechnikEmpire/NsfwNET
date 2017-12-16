@@ -21,8 +21,8 @@ namespace ClassifierTest
             Console.WriteLine("Loaded classifier.");
             Console.WriteLine("Classifier has cutoff of {0}.", classifier.Cutoff);
 
-            string badImagesTesting = @"J:\bad_stuff\test_bad_scaled";
-            string goodImagesTesting = @"J:\bad_stuff\test_good_scaled";
+            string badImagesTesting = PATH_TO_BAD_IMAGES;
+            string goodImagesTesting = PATH_TO_GOOD_IMAGES;
 
             var badImgs = Directory.GetFiles(badImagesTesting).ToList();
             var goodImgs = Directory.GetFiles(goodImagesTesting).ToList();
@@ -58,8 +58,9 @@ namespace ClassifierTest
                 }
                 else
                 {
-                    var outPath = Path.Combine(@"J:\garbage", Path.GetFileName(img));
-                    File.Move(img, outPath);
+                    // If you feel like inspecting false negatives.
+                    // var outPath = Path.Combine(SOME_BASE_PATH_FOR_FALSE_NEGATIVES, Path.GetFileName(img));
+                    // File.Move(img, outPath);
                     ++badWrong;
                 }
 
