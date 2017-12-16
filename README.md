@@ -7,7 +7,7 @@ Probably the only thing that matters. In my testing on 2000 images, 1000 from ea
 Classified pornographic images with an accuracy of 100%.
 Classified non-pornographic images with an accuracy of 96.8%.
 ```
-That's with the default `Cutoff` value of `0.2.`. Very nice work Yahoo.
+That's with the default `Cutoff` value of `0.2`. Very nice work Yahoo.
 
 Note that this isn't truly 100%. When expanding to many thousand of more diverse positive images, I've found that certain pornography does slip through, but very rarely. An example of this would be a pornographic scene where most clothing is present, and private parts are mostly occluded, and what is visible makes up a very small area of the actual frame. So, it's not perfect, but I think it's as good as it gets.
 
