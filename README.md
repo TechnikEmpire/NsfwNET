@@ -11,6 +11,10 @@ That's with the default `Cutoff` value of `0.2.`. Very nice work Yahoo.
 
 Note that this isn't truly 100%. When expanding to many thousand of more diverse positive images, I've found that certain pornography does slip through, but very rarely. An example of this would be a pornographic scene where most clothing is present, and private parts are mostly occluded, and what is visible makes up a very small area of the actual frame. So, it's not perfect, but I think it's as good as it gets.
 
+## Speed
+
+On a 6th gen i7 at 3.4 ghz, running on randomly sized images ranging from 1080P and <480P,  this processes at ~27msec per image, or ~37FPS.
+
 ## Everything Else
 
 This project is available as a .NET Standard 2.0 project on [Nuget](https://www.nuget.org/packages/NsfwNET). The Nuget package bundles the necessary model data and is configured to automatically stage those files, along with native, architecture specific dll's inside your parent project output directory.
