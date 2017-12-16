@@ -13,7 +13,7 @@ Note that this isn't truly 100%. When expanding to many thousand of more diverse
 
 ## Speed
 
-On a 6th gen i7 at 3.4 ghz, running on randomly sized images ranging from 1080P and <480P,  this processes at ~27msec per image, or ~37FPS.
+On a 6th gen i7 at 3.4 ghz, running on randomly sized images ranging from 1080P to <=480P,  this processes at ~27msec per image, or ~37FPS.
 
 ## Everything Else
 
