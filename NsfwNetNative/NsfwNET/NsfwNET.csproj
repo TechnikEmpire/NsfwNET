@@ -8,8 +8,11 @@
     <PackageProjectUrl>https://github.com/TechnikEmpire/NsfwNET</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TechnikEmpire/NsfwNET</RepositoryUrl>
     <PackageTags>nsfw image classification classifier</PackageTags>
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes>Ensures that unmanaged resources are released.</PackageReleaseNotes>
     <Description>.NET Standard library for classifying pornographic images, ported from Yahoo's open NSFW.</Description>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

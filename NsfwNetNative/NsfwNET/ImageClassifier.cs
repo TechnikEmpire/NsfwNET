@@ -1,21 +1,21 @@
 ﻿/*
 * Copyright © 2017 Jesse Nicholson
 * Copyright © 2016, Yahoo Inc.
-* 
+*
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted
 * provided that the following conditions are met:
-* 
+*
 * 1. Redistributions of source code must retain the above copyright
 * notice, this list of conditions
 * and the following disclaimer.
-* 
+*
 * 2. Redistributions in binary form must reproduce the above copyright
 * notice, this list of
 * conditions and the following disclaimer in the documentation and/or
 * other materials provided with
 * the distribution.
-* 
+*
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR
 * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -35,12 +35,19 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NsfwNET
 {
-    public class ImageClassifier
+    /// <summary>
+    /// The ImageClassifier class accepts full image binary payloads as the single parameter to a
+    /// classify function, which will return a boolean value indicating whether or not the supplied
+    /// image contains pornographic subject matter.
+    /// </summary>
+    /// <remarks>
+    /// This class uses PInvoke to create and call an unmanaged native instance of a classifier. As
+    /// such, this class implements the IDisposable interface to free unamanaged resources. Use it accordingly.
+    /// </remarks>
+    public class ImageClassifier : IDisposable
     {
         private IntPtr m_nativeObj = IntPtr.Zero;
 
@@ -83,10 +90,10 @@ namespace NsfwNET
         /// Constructs a new image classifier instance from the nsfw caffe model. 
         /// </summary>
         /// <param name="protoTextPath">
-        /// Path to the prototxt file.
+        /// Path to the prototxt file. 
         /// </param>
         /// <param name="caffeModelPath">
-        /// Path to the model bin file.
+        /// Path to the model bin file. 
         /// </param>
         public ImageClassifier(string protoTextPath, string caffeModelPath)
         {
@@ -119,5 +126,44 @@ namespace NsfwNET
 
             return result;
         }
+
+        #region IDisposable Support
+
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if(!disposedValue)
+            {
+                if(disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                }
+
+                if(m_nativeObj != IntPtr.Zero)
+                {
+                    ImageClassifierPInvoke.classifier_destroy(m_nativeObj);
+                    m_nativeObj = IntPtr.Zero;
+                }
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free
+        //       unmanaged resources. ~ImageClassifier() { // Do not change this code. Put cleanup
+        // code in Dispose(bool disposing) above. Dispose(false); }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above. GC.SuppressFinalize(this);
+        }
+
+        #endregion IDisposable Support
     }
 }
