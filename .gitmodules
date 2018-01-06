@@ -1,0 +1,9 @@
+[submodule "NsfwNetNative/Contrib/NsfwSqueezenet"]
+	path = NsfwNetNative/Contrib/NsfwSqueezenet
+	url = https://github.com/TechnikEmpire/NsfwSqueezenet.git
+	ignore = dirty
+	
+[submodule "NsfwNetNative/Contrib/OpenNSFW"]
+	path = NsfwNetNative/Contrib/OpenNSFW
+	url = https://github.com/yahoo/open_nsfw.git
+	ignore = dirty

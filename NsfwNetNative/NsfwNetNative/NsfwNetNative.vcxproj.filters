@@ -13,12 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Classifiers">
+      <UniqueIdentifier>{eeaaabda-d090-44f2-97e0-526283fad69a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classifiers">
+      <UniqueIdentifier>{0e7531be-a36b-473e-a5b4-52c5bc33c225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NsfwNet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImageClassifier.cpp">
+    <ClCompile Include="AbstractImageClassifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RestnetClassifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SqueezenetClassifier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,7 +38,13 @@
     <ClInclude Include="NsfwNet.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ImageClassifier.hpp">
+    <ClInclude Include="AbstractImageClassifier.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResnetClassifier.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SqueezenetClassifier.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

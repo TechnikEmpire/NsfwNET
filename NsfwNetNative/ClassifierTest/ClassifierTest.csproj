@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -59,7 +61,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(SolutionDir)NsfwNetNative\$(Configuration) x86\*.dll" "$(TargetDir)\x86\"
 xcopy /Y "$(SolutionDir)NsfwNetNative\$(Configuration) x64\*.dll" "$(TargetDir)\x64\"
-xcopy /Y "$(SolutionDir)NsfwNET\*.prototxt" "$(TargetDir)"
-xcopy /Y "$(SolutionDir)NsfwNET\*.caffemodel" "$(TargetDir)"</PostBuildEvent>
+xcopy /Y "$(SolutionDir)NsfwNET\bin\$(Configuration)\netstandard2.0\*.prototxt" "$(TargetDir)"
+xcopy /Y "$(SolutionDir)NsfwNET\bin\$(Configuration)\netstandard2.0\*.caffemodel" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

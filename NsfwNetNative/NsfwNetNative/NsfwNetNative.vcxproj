@@ -98,17 +98,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NSFWNET_EXPORT;WIN32;_DEBUG;NSFWNETNATIVE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_world331.dll" "$(OutDir)"</Command>
+      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_core331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgproc331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgcodecs331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_dnn331.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -119,17 +122,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NSFWNET_EXPORT;_DEBUG;NSFWNETNATIVE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_world331.dll" "$(OutDir)"</Command>
+      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_core331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgproc331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgcodecs331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_dnn331.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,19 +148,24 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NSFWNET_EXPORT;WIN32;NDEBUG;NSFWNETNATIVE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_world331.dll" "$(OutDir)"</Command>
+      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_core331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgproc331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgcodecs331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_dnn331.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -167,28 +178,36 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NSFWNET_EXPORT;NDEBUG;NSFWNETNATIVE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\include</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_world331.dll" "$(OutDir)"</Command>
+      <Command>xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_core331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgproc331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_imgcodecs331.dll" "$(TargetDir)"
+xcopy /Y "$(OPENCV_3_3)\build\$(PlatformTargetAsMSBuildArchitecture)\install\bin\opencv_dnn331.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ImageClassifier.cpp" />
+    <ClCompile Include="AbstractImageClassifier.cpp" />
+    <ClCompile Include="SqueezenetClassifier.cpp" />
     <ClCompile Include="NsfwNet.cpp" />
+    <ClCompile Include="RestnetClassifier.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImageClassifier.hpp" />
+    <ClInclude Include="AbstractImageClassifier.hpp" />
+    <ClInclude Include="SqueezenetClassifier.hpp" />
     <ClInclude Include="NsfwNet.hpp" />
+    <ClInclude Include="ResnetClassifier.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

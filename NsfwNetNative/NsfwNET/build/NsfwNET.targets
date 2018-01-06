@@ -1,8 +1,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <NativeLibs Include="$(MSBuildThisFileDirectory)**\*.dll" />
+  <NativeLibs Include="$(MSBuildThisFileDirectory)**\*.dll" />
 	<Proto Include="$(MSBuildThisFileDirectory)**\*.prototxt" />
 	<Models Include="$(MSBuildThisFileDirectory)**\*.caffemodel" />
+  <Licenses Include="$(MSBuildThisFileDirectory)**\*.md" />
 	<DebugSymbols Include="$(MSBuildThisFileDirectory)**\*.pdb" />
 	<NativeDrivers Include="$(MSBuildThisFileDirectory)**\*.sys" />
     <None Include="@(NativeLibs)">
@@ -18,6 +19,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 	<None Include="@(NativeDrivers)">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="@(Licenses)">
       <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

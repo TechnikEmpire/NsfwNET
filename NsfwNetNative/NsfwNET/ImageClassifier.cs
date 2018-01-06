@@ -1,43 +1,32 @@
 ﻿/*
-* Copyright © 2017 Jesse Nicholson
-* Copyright © 2016, Yahoo Inc.
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted
-* provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright
-* notice, this list of conditions
-* and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright
-* notice, this list of
-* conditions and the following disclaimer in the documentation and/or
-* other materials provided with
-* the distribution.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-* "AS IS" AND ANY EXPRESS OR
-* IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-* WARRANTIES OF MERCHANTABILITY AND
-* FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
-* THE COPYRIGHT HOLDER OR
-* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-* EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
-* GOODS OR SERVICES; LOSS OF USE,
-* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-* THEORY OF LIABILITY, WHETHER
-* IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-* OTHERWISE) ARISING IN ANY WAY OUT
-* OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-* SUCH DAMAGE.
+* Copyright © 2018 Jesse Nicholson
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace NsfwNET
 {
+    /// <summary>
+    /// The type of classifier you are creating. This must be accurate.
+    /// </summary>
+    public enum ClassifierType
+    {
+        /// <summary>
+        /// This tells the underlying classification system that you're loading the NSFW Resnet 50
+        /// model from OpenNSFW.
+        /// </summary>
+        Resnet = 0,
+
+        /// <summary>
+        /// This tells the underlying classification system that you're loading the NSFW Squeezenet model. 
+        /// </summary>
+        Squeezenet = 1,
+    }
+
     /// <summary>
     /// The ImageClassifier class accepts full image binary payloads as the single parameter to a
     /// classify function, which will return a boolean value indicating whether or not the supplied
@@ -87,7 +76,7 @@ namespace NsfwNET
         }
 
         /// <summary>
-        /// Constructs a new image classifier instance from the nsfw caffe model. 
+        /// Constructs a new image classifier instance from the given model files.
         /// </summary>
         /// <param name="protoTextPath">
         /// Path to the prototxt file. 
@@ -95,15 +84,106 @@ namespace NsfwNET
         /// <param name="caffeModelPath">
         /// Path to the model bin file. 
         /// </param>
-        public ImageClassifier(string protoTextPath, string caffeModelPath)
+        /// <param name="type">
+        /// The type of classifier to create.
+        /// </param>
+        /// <param name="mean">
+        /// The optional mean value for the supplied model. Internally, defaults to the predefined
+        /// mean for the built in models (resnet 50, squeezenet).
+        /// </param>
+        public ImageClassifier(string protoTextPath, string caffeModelPath, ClassifierType type, double[] mean = null)
         {
-            m_nativeObj = ImageClassifierPInvoke.classifier_create(protoTextPath, protoTextPath.Length, caffeModelPath, caffeModelPath.Length);
+            IntPtr meanPtr = IntPtr.Zero;
+
+            if(mean != null)
+            {
+                switch(mean.Length)
+                {
+                    case 3:
+                    case 4:
+                        {
+
+                        }
+                        break;
+
+                    default:
+                        {
+                            throw new ArgumentException("Mean value, if supplied, must have a length of 3 or 4. BGR(A).");
+                        }
+                }
+
+                meanPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * mean.Length);
+                Marshal.Copy(mean, 0, meanPtr, mean.Length);
+            }
+
+            m_nativeObj = ImageClassifierPInvoke.classifier_create_from_fs(protoTextPath, protoTextPath.Length, caffeModelPath, caffeModelPath.Length, (byte)type, meanPtr);
+
+            if(meanPtr != IntPtr.Zero)
+            {
+                Marshal.FreeHGlobal(meanPtr);
+            }
 
             if(m_nativeObj == IntPtr.Zero)
             {
                 throw new Exception("Failed to allocate native classifier.");
             }
         }
+
+#if NSFW_HAVE_NONBROKEN_CV_3_4
+        /// <summary>
+        /// Constructs a new image classifier instance from the caffe model in memory.
+        /// </summary>
+        /// <param name="prototxt">
+        /// The prototxt data.
+        /// </param>
+        /// <param name="model">
+        /// The model data.
+        /// </param>
+        /// <param name="type">
+        /// The type of classifier to create.
+        /// </param>
+        /// <param name="mean">
+        /// The optional mean value for the supplied model. Internally, defaults to the predefined
+        /// mean for the built in models (resnet 50, squeezenet).
+        /// </param>
+        public ImageClassifier(byte[] prototxt, byte[] model, ClassifierType type, double[] mean = null)
+        {
+            IntPtr meanPtr = IntPtr.Zero;
+
+            if(mean != null)
+            {
+                switch(mean.Length)
+                {
+                    case 3:
+                    case 4:
+                        {
+
+                        }
+                        break;
+
+                    default:
+                        {
+                            throw new ArgumentException("Mean value, if supplied, must have a length of 3 or 4. BGR(A).");
+                        }
+                }
+
+                meanPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(double)) * mean.Length);
+                Marshal.Copy(mean, 0, meanPtr, mean.Length);
+            }
+
+            m_nativeObj = ImageClassifierPInvoke.classifier_create_from_memory(prototxt, prototxt.Length, model, model.Length, (byte)type, meanPtr);
+
+            if(meanPtr != IntPtr.Zero)
+            {
+                Marshal.FreeHGlobal(meanPtr);
+            }
+
+            if(m_nativeObj == IntPtr.Zero)
+            {
+                throw new Exception("Failed to allocate native classifier.");
+            }
+        }
+#endif
 
         /// <summary>
         /// Classifies the image input. Note that you need to ensure that you are supplying an image
@@ -122,6 +202,28 @@ namespace NsfwNET
             lock(m_classLock)
             {
                 result = ImageClassifierPInvoke.classifier_classify(m_nativeObj, imageData, imageData.Length);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the probability of the input image being positive.
+        /// in JPEG encoding.
+        /// </summary>
+        /// <param name="imageData">
+        /// The image data to classify. 
+        /// </param>
+        /// <returns>
+        /// The probability that the input is a positive match.
+        /// </returns>
+        public double GetPositiveProbability(byte[] imageData)
+        {
+            double result = 0d;
+
+            lock(m_classLock)
+            {
+                result = ImageClassifierPInvoke.classifier_get_positive_probability(m_nativeObj, imageData, imageData.Length);
             }
 
             return result;
@@ -164,6 +266,6 @@ namespace NsfwNET
             // TODO: uncomment the following line if the finalizer is overridden above. GC.SuppressFinalize(this);
         }
 
-        #endregion IDisposable Support
+#endregion IDisposable Support
     }
 }
