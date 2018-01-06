@@ -8,13 +8,15 @@
     <PackageProjectUrl>https://github.com/TechnikEmpire/NsfwNET</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TechnikEmpire/NsfwNET</RepositoryUrl>
     <PackageTags>nsfw image classification classifier</PackageTags>
-    <PackageReleaseNotes>Includes a new model that is almost equally accurate yet nearly 3x faster in forward pass.
-Can now get direct access to probability rather than just having boolean return value when classifying.
-Bundles OpenCV built with libjpeg-turbo for a ~24% increase in jpeg decoding speed.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fix author/copyright stuff in Nuget info.</PackageReleaseNotes>
     <Description>.NET Standard library for classifying pornographic images, ported from Yahoo's open NSFW.</Description>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
+    <Version>1.1.1</Version>
+    <Copyright>2018 Jesse Nicholson</Copyright>
+    <Company>Technik Empire</Company>
+    <Product>NsfwNET</Product>
+    <Authors>Jesse Nicholson</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
