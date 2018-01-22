@@ -51,11 +51,11 @@ namespace ClassifierTest
         {
             Console.WriteLine("{0} classifier has cutoff of {1}.", type, classifier.Cutoff);
             
-            string badImagesTesting = @"SOME BUD STUFF BRO";
+            string badImagesTesting = @"SOME BAD STUFF BRO";
             string goodImagesTesting = @"SOME GOOD STUFF KIDDO";
 
-            var badImgs = Directory.GetFiles(badImagesTesting).ToList();
-            var goodImgs = Directory.GetFiles(goodImagesTesting).ToList();
+            var badImgs = Directory.GetFiles(badImagesTesting, "*.jpg", SearchOption.AllDirectories).ToList();
+            var goodImgs = Directory.GetFiles(goodImagesTesting, "*.jpg", SearchOption.AllDirectories).ToList();
 
             // Cut down our test base so it's not so huge.
             var min = Math.Min(badImgs.Count, goodImgs.Count);
@@ -64,6 +64,8 @@ namespace ClassifierTest
             {
                 min = 1000;
             }
+
+            Console.WriteLine("Testing against a total of {0} images, {1} from each class.", min * 2, min);
 
             badImgs = badImgs.GetRange(0, min);
             goodImgs = goodImgs.GetRange(0, min);
@@ -137,7 +139,7 @@ namespace ClassifierTest
             sw.Start();
             TestClassifier(squeezeClassifier, ClassifierType.Squeezenet);
             sw.Stop();
-
+            
             double firstTime = sw.ElapsedMilliseconds;
             sw.Reset();
             
