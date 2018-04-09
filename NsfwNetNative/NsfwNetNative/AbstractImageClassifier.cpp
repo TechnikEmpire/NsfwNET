@@ -17,6 +17,8 @@ const cv::Size AbstractImageClassifier::s_zeroSize {};
 
 const cv::Scalar AbstractImageClassifier::s_zeroScalar {};
 
+AbstractImageClassifier::StaticMemberInitializer AbstractImageClassifier::s_staticMemberInitializer;
+
 AbstractImageClassifier::AbstractImageClassifier(const std::string & prototxtPath, const std::string & mdlPath) noexcept
 {
 	try
@@ -37,7 +39,7 @@ AbstractImageClassifier::AbstractImageClassifier(const std::string & prototxtPat
 
 			m_network = cv::dnn::readNetFromCaffe(prototxtPath, mdlPath);
 			m_network.setPreferableTarget(cv::dnn::DNN_TARGET_CPU);
-			m_network.setPreferableBackend(cv::dnn::DNN_BACKEND_DEFAULT);
+			m_network.setPreferableBackend(cv::dnn::DNN_BACKEND_DEFAULT);			
 
 			m_network.enableFusion(true);
 		}
@@ -48,7 +50,6 @@ AbstractImageClassifier::AbstractImageClassifier(const std::string & prototxtPat
 	}
 }
 
-#ifdef NSFW_HAVE_NONBROKEN_CV_3_4
 AbstractImageClassifier::AbstractImageClassifier(const std::vector<char>& prototxt, const std::vector<char>& mdl) noexcept
 {
 	if (prototxt.size() > 0 && mdl.size() > 0)
@@ -67,7 +68,6 @@ AbstractImageClassifier::AbstractImageClassifier(const std::vector<char>& protot
 		}
 	}
 }
-#endif
 
 AbstractImageClassifier::~AbstractImageClassifier()
 {

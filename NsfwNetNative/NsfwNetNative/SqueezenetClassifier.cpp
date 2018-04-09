@@ -20,12 +20,10 @@ SqueezenetClassifier::SqueezenetClassifier(const std::string & prototxtPath, con
 	m_cutoff = 0.8;
 }
 
-#ifdef NSFW_HAVE_NONBROKEN_CV_3_4
 SqueezenetClassifier::SqueezenetClassifier(const std::vector<char>& prototxt, const std::vector<char>& mdl, cv::Scalar mean) noexcept : m_mean(mean), AbstractImageClassifier(prototxt, mdl)
 {
-	m_cutoff = 0.9;
+	m_cutoff = 0.8;
 }
-#endif
 
 SqueezenetClassifier::~SqueezenetClassifier() noexcept
 {

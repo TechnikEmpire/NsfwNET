@@ -8,11 +8,16 @@
     <PackageProjectUrl>https://github.com/TechnikEmpire/NsfwNET</PackageProjectUrl>
     <RepositoryUrl>https://github.com/TechnikEmpire/NsfwNET</RepositoryUrl>
     <PackageTags>nsfw image classification classifier</PackageTags>
-    <PackageReleaseNotes>Fix author/copyright stuff in Nuget info.</PackageReleaseNotes>
-    <Description>.NET Standard library for classifying pornographic images, ported from Yahoo's open NSFW.</Description>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
-    <Version>1.1.1</Version>
+    <PackageReleaseNotes>No longer terminates when a bad image is loaded into the library.
+Hook OpenCV's global assertion failure handler and prevent any action like printing to console.
+Upgrade to OpenCV 3.4.1</PackageReleaseNotes>
+    <Description>.NET Standard library for classifying pornographic images, ported from Yahoo's open NSFW.
+
+This library uses libjpeg-turbo because jpeg decoding remains a major bottleneck to most operations. The license for libjpeg-turbo can be found here:
+https://github.com/libjpeg-turbo/libjpeg-turbo/blob/master/LICENSE.md</Description>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
     <Copyright>2018 Jesse Nicholson</Copyright>
     <Company>Technik Empire</Company>
     <Product>NsfwNET</Product>
@@ -82,7 +87,7 @@
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy /Y &quot;$(SolutionDir)NsfwNetNative\Release x86\*.dll&quot; &quot;$(TargetDir)\x86\&quot;&#xD;&#xA;xcopy /Y &quot;$(SolutionDir)NsfwNetNative\Release x64\*.dll&quot; &quot;$(TargetDir)\x64\&quot;&#xD;&#xA;xcopy /Y &quot;$(SolutionDir)Contrib\NsfwSqueezenet\model\deploy.prototxt&quot; &quot;$(TargetDir)squeezenet_nsfw.prototxt*&quot;&#xD;&#xA;xcopy /Y &quot;$(SolutionDir)Contrib\NsfwSqueezenet\model\nsfw_squeezenet.caffemodel&quot; &quot;$(TargetDir)squeezenet_nsfw.caffemodel*&quot;&#xD;&#xA;xcopy /Y &quot;$(SolutionDir)Contrib\OpenNSFW\nsfw_model\deploy.prototxt&quot; &quot;$(TargetDir)resnet_nsfw.prototxt*&quot;&#xD;&#xA;xcopy /Y &quot;$(SolutionDir)Contrib\OpenNSFW\nsfw_model\*.caffemodel&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;xcopy /Y &quot;$(SolutionDir)Contrib\OpenNSFW\LICENSE.md&quot; &quot;$(TargetDir)LICENSE.OPEN_NSFW.md*&quot;&#xD;&#xA;xcopy /Y &quot;$(SolutionDir)Contrib\NsfwSqueezenet\LICENSE.md&quot; &quot;$(TargetDir)LICENSE.NSFW_SQUEEZENET.md*&quot;" />
+    <Exec Command="xcopy /Y /d &quot;$(SolutionDir)NsfwNetNative\Release x86\*.dll&quot; &quot;$(TargetDir)\x86\&quot;&#xD;&#xA;xcopy /Y /d &quot;$(SolutionDir)NsfwNetNative\Release x64\*.dll&quot; &quot;$(TargetDir)\x64\&quot;&#xD;&#xA;xcopy /Y /d &quot;$(SolutionDir)Contrib\NsfwSqueezenet\model\deploy.prototxt&quot; &quot;$(TargetDir)squeezenet_nsfw.prototxt*&quot;&#xD;&#xA;xcopy /Y /d &quot;$(SolutionDir)Contrib\NsfwSqueezenet\model\nsfw_squeezenet.caffemodel&quot; &quot;$(TargetDir)squeezenet_nsfw.caffemodel*&quot;&#xD;&#xA;xcopy /Y /d &quot;$(SolutionDir)Contrib\OpenNSFW\nsfw_model\deploy.prototxt&quot; &quot;$(TargetDir)resnet_nsfw.prototxt*&quot;&#xD;&#xA;xcopy /Y /d &quot;$(SolutionDir)Contrib\OpenNSFW\nsfw_model\*.caffemodel&quot; &quot;$(TargetDir)&quot;&#xD;&#xA;xcopy /Y /d &quot;$(SolutionDir)Contrib\OpenNSFW\LICENSE.md&quot; &quot;$(TargetDir)LICENSE.OPEN_NSFW.md*&quot;&#xD;&#xA;xcopy /Y /d &quot;$(SolutionDir)Contrib\NsfwSqueezenet\LICENSE.md&quot; &quot;$(TargetDir)LICENSE.NSFW_SQUEEZENET.md*&quot;" />
   </Target>
 
 </Project>

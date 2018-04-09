@@ -18,12 +18,11 @@ ResnetClassifier::ResnetClassifier(const std::string & prototxtPath, const std::
 	m_cutoff = 0.2;
 }
 
-#ifdef NSFW_HAVE_NONBROKEN_CV_3_4
+
 ResnetClassifier::ResnetClassifier(const std::vector<char>& prototxt, const std::vector<char>& mdl, cv::Scalar mean) noexcept : m_mean(mean), AbstractImageClassifier(prototxt, mdl)
 {
 	m_cutoff = 0.2;
 }
-#endif
 
 ResnetClassifier::~ResnetClassifier()
 {

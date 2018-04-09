@@ -11,12 +11,13 @@
 #include <string>
 
 #include <opencv2/opencv.hpp>
+#include <opencv2/core/ocl.hpp>
 #include <opencv2/dnn.hpp>
 
-#pragma comment(lib, "opencv_core331.lib")
-#pragma comment(lib, "opencv_dnn331.lib")
-#pragma comment(lib, "opencv_imgproc331.lib")
-#pragma comment(lib, "opencv_imgcodecs331.lib")
+#pragma comment(lib, "opencv_core341.lib")
+#pragma comment(lib, "opencv_dnn341.lib")
+#pragma comment(lib, "opencv_imgproc341.lib")
+#pragma comment(lib, "opencv_imgcodecs341.lib")
 
 /// <summary>
 /// The AbstractImageClassifier services as the base abstract type for all classifiers within the library. 
@@ -37,7 +38,6 @@ public:
 	/// </param>	
 	AbstractImageClassifier(const std::string& prototxtPath, const std::string& mdlPath) noexcept;
 
-#ifdef NSFW_HAVE_NONBROKEN_CV_3_4
 	/// <summary>
 	/// Constructs a new image classifier from the caffe prototxt and corresponding model binary data
 	/// loaded into the supplied vectors.
@@ -49,7 +49,6 @@ public:
 	/// The model data.
 	/// </param>
 	AbstractImageClassifier(const std::vector<char>& prototxt, const std::vector<char>& mdl) noexcept;
-#endif
 
 	/// <summary>
 	/// Default dtor.
@@ -158,5 +157,29 @@ protected:
 	static const cv::Size s_zeroSize;
 
 	static const cv::Scalar s_zeroScalar;
+
+	private:
+
+		/// <summary>
+		/// Initializes static members in an organized and ordered fashion.
+		/// </summary>
+		static class StaticMemberInitializer
+		{
+		public:
+
+			StaticMemberInitializer()
+			{
+				InitOcl();
+			}
+		} s_staticMemberInitializer;
+
+		static void InitOcl()
+		{
+			// Explicitly dispable OpenCL
+			if (cv::ocl::haveOpenCL())
+			{
+				cv::ocl::setUseOpenCL(false);
+			}
+		}
 };
 

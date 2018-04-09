@@ -29,7 +29,6 @@ public:
 	/// </param>
 	SqueezenetClassifier(const std::string& prototxtPath, const std::string& mdlPath, cv::Scalar mean = s_mean) noexcept;
 
-#ifdef NSFW_HAVE_NONBROKEN_CV_3_4
 	/// <summary>
 	/// Constructs a new image classifier from the caffe prototxt and corresponding model binary data
 	/// loaded into the supplied vectors.
@@ -45,7 +44,6 @@ public:
 	/// Squeezenet model. Change this if you are using a different Resnet model.
 	/// </param>
 	SqueezenetClassifier(const std::vector<char>& prototxt, const std::vector<char>& mdl, cv::Scalar mean = s_mean) noexcept;
-#endif
 
 	/// <summary>
 	/// Default dtor.

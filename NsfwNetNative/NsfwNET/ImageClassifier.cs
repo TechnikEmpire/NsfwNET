@@ -129,7 +129,6 @@ namespace NsfwNET
             }
         }
 
-#if NSFW_HAVE_NONBROKEN_CV_3_4
         /// <summary>
         /// Constructs a new image classifier instance from the caffe model in memory.
         /// </summary>
@@ -183,7 +182,6 @@ namespace NsfwNET
                 throw new Exception("Failed to allocate native classifier.");
             }
         }
-#endif
 
         /// <summary>
         /// Classifies the image input. Note that you need to ensure that you are supplying an image

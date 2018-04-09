@@ -33,9 +33,7 @@ extern "C" {
 
 	extern NSFWNET_API PVOID classifier_create_from_fs(const char* protoTxtPath, const uint32_t protoTxtLen, const char* caffeModelPath, const uint32_t caffeModelPathLen, const uint8_t classifierType, double* mean = nullptr);
 
-#ifdef NSFW_HAVE_NONBROKEN_CV_3_4
 	extern NSFWNET_API PVOID classifier_create_from_memory(const char* protoTxtData, const uint32_t protoTxtDataLen, const char* caffeModelData, const uint32_t caffeModelDataLen, const uint8_t classifierType, double* mean = nullptr);
-#endif
 
 	extern NSFWNET_API bool classifier_classify(PVOID classifier, unsigned char* imageData, const uint32_t imageDataLength);
 

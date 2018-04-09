@@ -37,7 +37,10 @@ namespace ClassifierTest
                     break;
             }
 
-            var classifier = new ImageClassifier(protoTxtPath, mdlBinPath, type);
+            var protoTxtBytes = File.ReadAllBytes(protoTxtPath);
+            var weightsBytes = File.ReadAllBytes(mdlBinPath);
+
+            var classifier = new ImageClassifier(protoTxtBytes, weightsBytes, type);
 
             if(classifier.IsEmpty)
             {
@@ -50,7 +53,7 @@ namespace ClassifierTest
         private static void TestClassifier(ImageClassifier classifier, ClassifierType type, bool verbose = false)
         {
             Console.WriteLine("{0} classifier has cutoff of {1}.", type, classifier.Cutoff);
-            
+
             string badImagesTesting = @"SOME BAD STUFF BRO";
             string goodImagesTesting = @"SOME GOOD STUFF KIDDO";
 

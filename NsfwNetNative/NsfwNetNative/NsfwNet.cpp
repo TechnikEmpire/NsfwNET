@@ -17,8 +17,18 @@ enum ClassifierType
 	NumEntries
 };
 
+int handleError(int status, const char* func_name,
+	const char* err_msg, const char* file_name,
+	int line, void* userdata)
+{
+	//Do nothing -- will suppress console output
+	return 0;   //Return value is not used
+}
+
 NSFWNET_API PVOID classifier_create_from_fs(const char* protoTxtPath, const uint32_t protoTxtLen, const char* caffeModelPath, const uint32_t caffeModelPathLen, const uint8_t classifierType, double* mean)
 {
+	cv::redirectError(handleError);
+
 	if (protoTxtPath != nullptr && caffeModelPath != nullptr)
 	{
 		std::string proto(protoTxtPath, protoTxtLen);
@@ -28,7 +38,8 @@ NSFWNET_API PVOID classifier_create_from_fs(const char* protoTxtPath, const uint
 
 		if (classifierType < 0 && classifierType > ClassifierType::NumEntries)
 		{
-			throw std::exception("Unknown classifier type.");
+			return nullptr;
+			// throw std::exception("Unknown classifier type.");
 		}
 
 		type = static_cast<ClassifierType>(classifierType);
@@ -55,7 +66,7 @@ NSFWNET_API PVOID classifier_create_from_fs(const char* protoTxtPath, const uint
 
 				default:
 				{
-					throw std::exception("Invalid number of arguments supplied as the mean. Must be 3 or 4 values. RGB and optionally A.");
+					// throw std::exception("Invalid number of arguments supplied as the mean. Must be 3 or 4 values. RGB and optionally A.");
 				}
 				break;
 			}			
@@ -106,7 +117,7 @@ NSFWNET_API PVOID classifier_create_from_fs(const char* protoTxtPath, const uint
 	return nullptr;
 }
 
-#ifdef NSFW_HAVE_NONBROKEN_CV_3_4
+
 NSFWNET_API PVOID classifier_create_from_memory(const char* protoTxtData, const uint32_t protoTxtDataLen, const char* caffeModelData, const uint32_t caffeModelDataLen, const uint8_t classifierType, double* mean)
 {
 	if (protoTxtData != nullptr && caffeModelData != nullptr)
@@ -195,7 +206,6 @@ NSFWNET_API PVOID classifier_create_from_memory(const char* protoTxtData, const 
 
 	return nullptr;
 }
-#endif
 
 NSFWNET_API bool classifier_classify(PVOID classifier, unsigned char * imageData, const uint32_t imageDataLength)
 {	
@@ -207,6 +217,11 @@ NSFWNET_API bool classifier_classify(PVOID classifier, unsigned char * imageData
 		{
 			cv::Mat rawData(1, imageDataLength, CV_8UC1, static_cast<void*>(imageData), false);
 			auto decoded = cv::imdecode(rawData, CV_LOAD_IMAGE_UNCHANGED);
+
+			if (decoded.data == nullptr || decoded.empty())
+			{
+				return false;
+			}
 
 			//std::vector<unsigned char> vec(imageData, imageData + imageDataLength);
 			//auto decoded = cv::imdecode(vec, CV_LOAD_IMAGE_UNCHANGED);
@@ -235,6 +250,11 @@ NSFWNET_API double classifier_get_positive_probability(PVOID classifier, unsigne
 
 			//std::vector<unsigned char> vec(imageData, imageData + imageDataLength);
 			//auto decoded = cv::imdecode(vec, CV_LOAD_IMAGE_UNCHANGED);
+
+			if (decoded.data == nullptr || decoded.empty())
+			{
+				return 0.;
+			}
 
 			return cast->GetPositiveProbability(decoded);
 		}
