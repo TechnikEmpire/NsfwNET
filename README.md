@@ -1,3 +1,6 @@
+# Update - This project doesn't is deprecated and you shouldn't use it.
+
+
 # NsfwNET
 .NET Standard library for classifying pornographic images.
 
