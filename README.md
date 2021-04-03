@@ -1,4 +1,4 @@
-# Update - This project doesn't is deprecated and you shouldn't use it.
+# Update - This project is deprecated and you shouldn't use it.
 
 
 # NsfwNET
